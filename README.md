@@ -29,3 +29,4 @@ mTextView.setMaxLines(4);//设置最大行
 <br>
 ###实现方法
 通过RelativeLayout添加一个TextView和一个ImageView封装实现
+
