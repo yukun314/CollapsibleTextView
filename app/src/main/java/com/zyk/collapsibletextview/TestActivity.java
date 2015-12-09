@@ -24,15 +24,15 @@ public class TestActivity extends AppCompatActivity {
     private void init() {
         mTextView = (CollapsibleTextView) findViewById(R.id.activity_test_textview);
         mTextView.setImage(R.drawable.down,R.drawable.up);
-        mTextView.getTextView().setTextColor(Color.BLUE);
+        mTextView.getTextView().setTextColor(Color.WHITE);
         mTextView.getTextView().setTextSize(23);
         mTextView.setMaxLines(4);
-        mTextView.setText("第一行初始化的内容\n第二行初始化的内容\n");
+        mTextView.setText("第一行初始化的内容\n第二行初始化的内容");
         Button mButton = (Button) findViewById(R.id.activity_test_button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = mTextView.getTextView().getText()+"第"+times+"次添加的内容\n";
+                String str = mTextView.getTextView().getText()+"第"+times+"次添加的内容.";
                 mTextView.setText(str);
                 times+=1;
             }

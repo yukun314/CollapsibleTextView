@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
@@ -57,6 +58,10 @@ public class CollapsibleTextView extends RelativeLayout {
 
     private void init(Context context) {
         mContext = context;
+        RelativeLayout rl = new RelativeLayout(context);
+        RelativeLayout.LayoutParams lp0 = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        rl.setLayoutParams(lp0);
+
         mTextView = new TextView(context);
         mTextView.setId(1);
         mTextView.setEllipsize(TextUtils.TruncateAt.END);
@@ -64,7 +69,7 @@ public class CollapsibleTextView extends RelativeLayout {
         RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         lp1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         mTextView.setLayoutParams(lp1);
-        this.addView(mTextView);
+        rl.addView(mTextView);
 
         mImageView = new ImageView(context);
         mImageView.setId(2);
@@ -72,32 +77,40 @@ public class CollapsibleTextView extends RelativeLayout {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imagestatus) {
-                    if (upBitmap != null) {
-                        mImageView.setImageBitmap(upBitmap);
-                    }
-                    mTextView.setEllipsize(null); // 展开
-                    mTextView.setSingleLine(false);
-                } else {
-                    if (downBitmap != null) {
-                        mImageView.setImageBitmap(downBitmap);
-                        ;
-                    }
-                    mTextView.setEllipsize(TextUtils.TruncateAt.END); // 收缩
-                    mTextView.setMaxLines(mMaxLines);
-                }
-                imagestatus = !imagestatus;
+                changeText();
             }
         });
         RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
         lp2.addRule(RelativeLayout.BELOW, mTextView.getId());
         mImageView.setLayoutParams(lp2);
-        this.addView(mImageView);
         mImageView.setVisibility(View.GONE);
+        rl.addView(mImageView);
 
+        ScrollView sv = new ScrollView(context);
+        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        sv.setLayoutParams(lp3);
+        sv.addView(rl);
+        this.addView(sv);
     }
 
+    private void changeText() {
+        if (imagestatus) {
+            if (upBitmap != null) {
+                mImageView.setImageBitmap(upBitmap);
+            }
+            mTextView.setEllipsize(null); // 展开
+            mTextView.setSingleLine(false);
+        } else {
+            if (downBitmap != null) {
+                mImageView.setImageBitmap(downBitmap);
+                ;
+            }
+            mTextView.setEllipsize(TextUtils.TruncateAt.END); // 收缩
+            mTextView.setMaxLines(mMaxLines);
+        }
+        imagestatus = !imagestatus;
+    }
 
     public void setText(CharSequence text) {
         isFirst = true;
@@ -115,7 +128,6 @@ public class CollapsibleTextView extends RelativeLayout {
                     if (count >= (mMaxLines + 1)) {
                         mImageView.setVisibility(View.VISIBLE);
                     }
-//					System.out.println("count:"+count+"  mMaxLines:"+mMaxLines);
                     mTextView.setMaxLines(mMaxLines);
                 }
                 return true;

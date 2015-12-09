@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.zyk.collapsibletextview.TestActivity">
+    android:background="#8ab7e4">
 
     <com.zyk.collapsibletextview.CollapsibleTextView
         android:id="@+id/activity_test_textview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
         android:layout_marginTop="15dp"/>
 
     <Button
         android:id="@+id/activity_test_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
         android:text="添加文字"/>
 </RelativeLayout>
